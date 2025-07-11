@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.UnitConverter"
+    tools:layout_editor_absoluteX="-1dp"
+    tools:layout_editor_absoluteY="50dp">
+
+    <ListView
+        android:id="@+id/listViewFrom"
+        android:layout_width="170dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="12dp"
+        android:choiceMode="singleChoice"
+        app:layout_constraintBottom_toBottomOf="@+id/listViewTo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/listViewTo"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ListView
+        android:id="@+id/listViewTo"
+        android:layout_width="170dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="308dp"
+        android:layout_marginEnd="12dp"
+        android:choiceMode="singleChoice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextFrom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTo"
+        app:layout_constraintEnd_toEndOf="@+id/listViewFrom"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textFromLabel"
+        app:layout_constraintTop_toTopOf="@+id/editTextTo"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textFromLabel"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="From:"
+        app:layout_constraintBottom_toBottomOf="@+id/textToLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textToLabel"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textToLabel"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="172dp"
+        android:layout_marginEnd="160dp"
+        android:text="To:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textFromLabel"
+        app:layout_constraintStart_toEndOf="@+id/textFromLabel" />
+
+    <TextView
+        android:id="@+id/textTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textToLabel"
+        app:layout_constraintStart_toEndOf="@+id/textToLabel" />
+
+    <EditText
+        android:id="@+id/editTextTo"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="46dp"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/listViewTo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textToLabel"
+        app:layout_constraintTop_toTopOf="@+id/textToLabel"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="11dp"
+        android:text="="
+        android:textSize="34sp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTo"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editTextFrom" />
+</androidx.constraintlayout.widget.ConstraintLayout>
