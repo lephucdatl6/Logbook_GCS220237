@@ -20,7 +20,8 @@ class TaskDbHelper(context: Context) :
             "CREATE TABLE ${TaskContract.TaskEntry.TABLE_NAME} (" +
                     "${BaseColumns._ID} INTEGER PRIMARY KEY," +
                     "${TaskContract.TaskEntry.COLUMN_NAME_DESCRIPTION} TEXT," +
-                    "${TaskContract.TaskEntry.COLUMN_NAME_DATE_ADDED} TEXT)"
+                    "${TaskContract.TaskEntry.COLUMN_NAME_DATE_ADDED} TEXT," +
+                    "isDone INTEGER DEFAULT 0)"
 
         private const val SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS ${TaskContract.TaskEntry.TABLE_NAME}"
@@ -45,6 +46,7 @@ class TaskDbHelper(context: Context) :
         val values = ContentValues().apply {
             put(TaskContract.TaskEntry.COLUMN_NAME_DESCRIPTION, task.description)
             put(TaskContract.TaskEntry.COLUMN_NAME_DATE_ADDED, task.dateAdded)
+            put("isDone", if (task.isDone) 1 else 0)
         }
         val newRowId = db.insert(TaskContract.TaskEntry.TABLE_NAME, null, values)
         db.close()
@@ -58,18 +60,19 @@ class TaskDbHelper(context: Context) :
         val projection = arrayOf(
             BaseColumns._ID,
             TaskContract.TaskEntry.COLUMN_NAME_DESCRIPTION,
-            TaskContract.TaskEntry.COLUMN_NAME_DATE_ADDED
+            TaskContract.TaskEntry.COLUMN_NAME_DATE_ADDED,
+            "isDone"
         )
 
         val sortOrder = "${TaskContract.TaskEntry.COLUMN_NAME_DATE_ADDED} DESC"
         val cursor = db.query(
-            TaskContract.TaskEntry.TABLE_NAME, // The table to query
-            projection,                       // The array of columns to return (pass null to get all)
-            null,                             // The columns for the WHERE clause
-            null,                             // The values for the WHERE clause
-            null,                             // don't group the rows
-            null,                             // don't filter by row groups
-            sortOrder                         // The sort order
+            TaskContract.TaskEntry.TABLE_NAME,
+            projection,
+            null,
+            null,
+            null,
+            null,
+            sortOrder
         )
 
         with(cursor) {
@@ -78,7 +81,8 @@ class TaskDbHelper(context: Context) :
                 val description = getString(getColumnIndexOrThrow(TaskContract.TaskEntry.COLUMN_NAME_DESCRIPTION))
                 val dateAdded = getString(getColumnIndexOrThrow(TaskContract.TaskEntry.COLUMN_NAME_DATE_ADDED))
 
-                val task = TaskItem(description = description, dateAdded = dateAdded, id = itemId)
+                val isDone = getInt(getColumnIndexOrThrow("isDone")) == 1
+                val task = TaskItem(description = description, dateAdded = dateAdded, id = itemId, isDone = isDone)
                 taskList.add(task)
             }
         }
@@ -123,4 +127,16 @@ class TaskDbHelper(context: Context) :
         return db.delete("tasks", null, null)
     }
 
+    fun updateTaskStatus(taskId: Long, isDone: Boolean): Int {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put("isDone", if (isDone) 1 else 0)
+        }
+        return db.update(
+            TaskContract.TaskEntry.TABLE_NAME,
+            values,
+            "${BaseColumns._ID} = ?",
+            arrayOf(taskId.toString())
+        )
+    }
 }
