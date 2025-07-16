@@ -117,4 +117,10 @@ class TaskDbHelper(context: Context) :
         val deletedRows = db.delete(TaskContract.TaskEntry.TABLE_NAME, selection, selectionArgs)
         return deletedRows
     }
+
+    fun deleteAllTasks(): Int {
+        val db = writableDatabase
+        return db.delete("tasks", null, null)
+    }
+
 }

@@ -48,15 +48,28 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/LabelStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="195dp"
         android:layout_marginEnd="26dp"
         android:layout_marginBottom="18dp"
         android:text="To Do List"
-        style="@style/LabelStyle"
         app:layout_constraintBottom_toTopOf="@+id/listViewTasks"
         app:layout_constraintEnd_toEndOf="@+id/editTextTask"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewClearAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/clear_all_underlined"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toTopOf="@+id/listViewTasks"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

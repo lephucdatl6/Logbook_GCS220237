@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Logbook</string>
+    <string name="clear_all_underlined"><u>Clear All</u></string>
 </resources>

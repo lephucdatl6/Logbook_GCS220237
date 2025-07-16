@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.logbook.R
 import com.example.logbook.adapter.TaskAdapter
@@ -35,6 +36,8 @@ class TodoList : AppCompatActivity() {
         editTextTask = findViewById(R.id.editTextTask)
         buttonAdd = findViewById(R.id.buttonAdd)
         listViewTasks = findViewById(R.id.listViewTasks)
+        val textViewClearAll = findViewById<TextView>(R.id.textViewClearAll)
+
 
         dbHelper = TaskDbHelper(this)
 
@@ -63,6 +66,25 @@ class TodoList : AppCompatActivity() {
                 Toast.makeText(this, "Please enter a task", Toast.LENGTH_SHORT).show()
             }
         }
+
+        textViewClearAll.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Clear All Tasks")
+                .setMessage("Are you sure you want to delete all tasks?")
+                .setPositiveButton("Yes") { _, _ ->
+                    val deletedCount = dbHelper.deleteAllTasks()
+                    if (deletedCount > 0) {
+                        tasksList.clear()
+                        adapter.notifyDataSetChanged()
+                        Toast.makeText(this, "All tasks deleted", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "No tasks to delete", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setNegativeButton("No", null)
+                .show()
+        }
+
 
         listViewTasks.setOnItemClickListener { _, _, position, _ ->
             val selectedTask = tasksList[position]
